@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="item_offset">8dp</dimen>
+
+    <dimen name="topping_item_height">48dp</dimen>
+
+</resources>

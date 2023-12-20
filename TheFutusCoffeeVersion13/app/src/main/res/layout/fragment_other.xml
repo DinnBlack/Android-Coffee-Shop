@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.OtherFragment"
+    android:background="#F1F1F1"
+    android:paddingHorizontal="16dp">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/quicksandbold"
+                android:text="Tiện Ích"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radius_button_action_other"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:src="@drawable/baseline_history_edu_24" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksandbold"
+                        android:text="Lịch sử đơn hàng"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radius_button_action_other"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:src="@drawable/baseline_security_24" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksandbold"
+                        android:text="Điều khoản"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/quicksandbold"
+                android:text="Hỗ trợ"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/radius_button_action_other"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/baseline_star_outline_24"
+                    android:drawableRight="@drawable/outline_arrow_forward_ios_24"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="left"
+                    android:text="Đánh giá đơn hàng"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    app:backgroundTint="#ffffff" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="#E8E8E8" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/baseline_chat_bubble_outline_24"
+                    android:drawableRight="@drawable/outline_arrow_forward_ios_24"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="left"
+                    android:text="Liên hệ và góp ý"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    app:backgroundTint="#ffffff" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="#E8E8E8" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/outline_sticky_note_2_24"
+                    android:drawableRight="@drawable/outline_arrow_forward_ios_24"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="left"
+                    android:text="Hướng dẫn xuất hóa đơn GTGT"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    app:backgroundTint="#ffffff" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/quicksandbold"
+                android:text="Tài khoản"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/radius_button_action_other"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/outline_person_outline_24"
+                    android:drawableRight="@drawable/outline_arrow_forward_ios_24"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="left"
+                    android:text="Thông tin cá nhân"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    app:backgroundTint="#ffffff" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="#E8E8E8" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/outline_settings_24"
+                    android:drawableRight="@drawable/outline_arrow_forward_ios_24"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="left"
+                    android:text="Cài đặt"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    app:backgroundTint="#ffffff" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="#E8E8E8" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/outline_logout_24"
+                    android:drawableRight="@drawable/outline_arrow_forward_ios_24"
+                    android:fontFamily="@font/quicksandmedium"
+                    android:gravity="left"
+                    android:text="Đăng xuất"
+                    android:textColor="#000000"
+                    android:textSize="14dp"
+                    app:backgroundTint="#ffffff" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

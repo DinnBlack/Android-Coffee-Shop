@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "438632591350",
+    "firebase_url": "https://the-futus-coffee-v1-default-rtdb.firebaseio.com",
+    "project_id": "the-futus-coffee-v1",
+    "storage_bucket": "the-futus-coffee-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438632591350:android:6fd9027c4df4f0bf67e1d7",
+        "android_client_info": {
+          "package_name": "com.example.finalprojectmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDirh_O9VUruGFAOUjrmrNKeVjZy7ZxytQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438632591350:android:14a315a8770fc43d67e1d7",
+        "android_client_info": {
+          "package_name": "com.example.thefutuscoffeeversion13"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDirh_O9VUruGFAOUjrmrNKeVjZy7ZxytQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

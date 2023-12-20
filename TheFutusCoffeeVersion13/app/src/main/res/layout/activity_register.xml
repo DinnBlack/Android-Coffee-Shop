@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@drawable/top_corned_background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quicksandmedium"
+            android:gravity="center"
+            android:text="Chào mừng đến với"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/fontlogin"
+            android:gravity="center"
+            android:text="THE FUCTUS COFFEE"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etEmailSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/background_btn_1"
+            android:drawableLeft="@drawable/baseline_email_24"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/quicksandmedium"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="#5E5E5E"
+            android:textSize="16dp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPasswordSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/background_btn_1"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/quicksandmedium"
+            android:hint="Password"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:password="true"
+            android:textColor="@color/black"
+            android:textColorHint="#5E5E5E"
+            android:textSize="16dp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPasswordConfirmSignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/background_btn_1"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/quicksandmedium"
+            android:hint="Confirm password"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:password="true"
+            android:textColor="@color/black"
+            android:textColorHint="#5E5E5E"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#5E5E5E" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btSignup"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="@font/quicksandmedium"
+            android:text="Đăng ký"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:backgroundTint="#181818"
+            app:cornerRadius="10dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:fontFamily="@font/quicksandmedium"
+            android:gravity="center"
+            android:text="Bạn đã có tài khoản? Đăng nhập ngay" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

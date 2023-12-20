@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/round_create_24"
+            android:layout_gravity="center_vertical"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="x"
+                    android:fontFamily="@font/quicksandbold"
+                    android:textStyle="bold"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/cartQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@font/quicksandbold"
+                    android:text="2"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/cartProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cà phê sữa đá"
+                    android:fontFamily="@font/quicksandbold"
+                    android:textStyle="bold"
+                    android:textSize="16dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/cartProductSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vừa"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/quicksandmedium"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:id="@+id/cartProductTopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thạch cà phê"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/quicksandmedium"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/cartProductTotalPrice"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="69.000đ"
+            android:fontFamily="@font/quicksandmedium"
+            android:gravity="end"
+            android:textSize="16dp"
+            android:layout_gravity="end|center_vertical"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
