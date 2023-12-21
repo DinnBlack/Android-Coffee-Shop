@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_Processing"
+        android:title="Đang xử lý"
+        android:icon="@drawable/round_check_circle_outline_24"/>
+    <item
+        android:id="@+id/action_Delivering"
+        android:title="Đang giao"
+        android:icon="@drawable/round_delivery_dining_24"/>
+    <item
+        android:id="@+id/action_Delivered"
+        android:title="Đã giao"
+        android:icon="@drawable/round_check_circle_24"/>
+    <item
+        android:id="@+id/action_cancelled"
+        android:title="Đã hủy"
+        android:icon="@drawable/round_cancel_24"/>
+
+</menu>

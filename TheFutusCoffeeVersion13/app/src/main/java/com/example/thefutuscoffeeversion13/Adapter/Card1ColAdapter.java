@@ -27,7 +27,6 @@ public class Card1ColAdapter extends RecyclerView.Adapter<Card1ColAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         ImageView ivImage;
         TextView tvTitle;
         TextView tvPrice;
