@@ -48,7 +48,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.firebase:firebase-analytics")
-    implementation ("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.github.dhaval2404:imagepicker:2.1")
 //    implementation("com.github.momo-wallet:mobile-sdk:1.0.7")
     testImplementation("junit:junit:4.13.2")

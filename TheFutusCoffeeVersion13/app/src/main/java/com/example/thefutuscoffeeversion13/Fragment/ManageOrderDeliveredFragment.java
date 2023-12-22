@@ -2,13 +2,28 @@ package com.example.thefutuscoffeeversion13.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.thefutuscoffeeversion13.Adapter.CardOrderAdapter;
+import com.example.thefutuscoffeeversion13.Domain.OrderModel;
 import com.example.thefutuscoffeeversion13.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +76,39 @@ public class ManageOrderDeliveredFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_order_delivered, container, false);
+        View view = inflater.inflate(R.layout.fragment_manage_order_delivered, container, false);
+
+        //Current User
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        assert currentUser != null;
+        String userEmail = currentUser.getEmail();
+
+        //load data
+        RecyclerView rvManageOrderDelivered = view.findViewById(R.id.rvManageOrderDelivered);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        rvManageOrderDelivered.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        List<OrderModel> orderModelList = new ArrayList<>();
+        CardOrderAdapter cardOrderAdapter = new CardOrderAdapter(getActivity(), orderModelList);
+        rvManageOrderDelivered.setAdapter(cardOrderAdapter);
+
+        db.collection("Users").document(userEmail).collection("Order")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString("status").equals("Đã giao hàng")) {
+                                    OrderModel cardModel = document.toObject(OrderModel.class);
+                                    orderModelList.add(cardModel);
+                                    cardOrderAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    }
+                });
+
+        return view;
     }
 }

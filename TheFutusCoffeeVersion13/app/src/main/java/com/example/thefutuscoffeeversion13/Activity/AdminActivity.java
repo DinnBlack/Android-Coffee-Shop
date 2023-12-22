@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,18 +29,29 @@ import java.util.Calendar;
 public class AdminActivity extends AppCompatActivity {
     private TextView currentTimeOfDay, tvCurrentAccountName;
     private String role;
-    private CardView btListProducts, btListAccounts, btListRevenue;
+    private CardView btListOrders, btListProducts, btListAccounts, btListRevenue;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         currentTimeOfDay = findViewById(R.id.currentTimeOfDay);
         tvCurrentAccountName = findViewById(R.id.tvCurrentAccountName);
+        btListOrders = findViewById(R.id.btListOrders);
         btListProducts = findViewById(R.id.btListProducts);
         btListAccounts = findViewById(R.id.btListAccounts);
         btListRevenue = findViewById(R.id.btListRevenue);
         currentTime();
         checkRole();
+
+        //intent orders
+        btListOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this, ManageOrderActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void currentTime () {

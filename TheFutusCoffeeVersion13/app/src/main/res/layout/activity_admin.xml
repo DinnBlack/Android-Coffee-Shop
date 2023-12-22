@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F1F1F1"
     tools:context=".Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -72,9 +73,9 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/btListStudents"
+            android:id="@+id/btListOrders"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             android:layout_gravity="center"
@@ -86,7 +87,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -106,7 +107,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/btListProducts"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             android:layout_gravity="center"
@@ -118,7 +119,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -137,7 +138,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/btListAccounts"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             android:layout_gravity="center"
@@ -149,7 +150,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -170,7 +171,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/btListRevenue"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             android:layout_gravity="center"
@@ -182,7 +183,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+                >
 
                 <TextView
                     android:layout_width="match_parent"
