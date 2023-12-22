@@ -268,10 +268,16 @@ public class MainActivity extends AppCompatActivity {
     private void order (Dialog dialog, String userEmail, TextView paymentAmount, EditText nameReceiver, EditText phoneNumberReceiver, EditText addressReceiver) {
         //Current time
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
         Date currentDate = calendar.getTime();
         String formattedDateTime = dateFormat.format(currentDate).replaceAll("[/:\\s]", "");
         String idOrder = userEmail + formattedDateTime;
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = dayFormat.format(currentDate);
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String formattedTime = timeFormat.format(currentDate);
 
         //check
         if (TextUtils.isEmpty(nameReceiver.getText().toString())) {
@@ -291,6 +297,27 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        FirebaseFirestore dbCart = FirebaseFirestore.getInstance();
+        dbCart.collection("Users").document(userEmail).collection("Card")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            Map<String, Object> cartItems = new HashMap<>();
+                            cartItems.put("title", document.getString("title"));
+                            cartItems.put("size", document.getString("size"));
+                            cartItems.put("quantity", document.getString("quantity"));
+                            cartItems.put("topping", document.getString("topping"));
+                            cartItems.put("totalprice", document.getString("totalprice"));
+                            db.collection("Users").document(userEmail).collection("Order").document(idOrder).collection("Cart").document()
+                                    .set(cartItems)
+                                    .addOnCompleteListener(innerTask -> {
+                                    });
+                        }
+                    }
+                });
+
         FirebaseFirestore dbOrder = FirebaseFirestore.getInstance();
         Map<String, Object> items = new HashMap<>();
         items.put("idOrder", idOrder);
@@ -298,6 +325,9 @@ public class MainActivity extends AppCompatActivity {
         items.put("name", nameReceiver.getText().toString());
         items.put("phoneNumber", phoneNumberReceiver.getText().toString());
         items.put("address", addressReceiver.getText().toString());
+        items.put("day", formattedDate);
+        items.put("time", formattedTime);
+        items.put("daytime", formattedDateTime);
         items.put("status", "Đang xử lý");
         items.put("paymentstatus", "Chưa thanh toán");
         dbOrder.collection("Users").document(userEmail).collection("Order").document(idOrder)

@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thefutuscoffeeversion13.R;
@@ -26,6 +29,11 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etEmailSignup, etPasswordSignup, etPasswordConfirmSignup;
     private Button btSignup;
     private FirebaseAuth mAuth;
+    private ImageView ivPasswordVisibility;
+    private boolean isPasswordVisible = true;
+    private ImageView ivConfirmPasswordVisibility;
+    private boolean isConfirmPasswordVisible = true;
+    private TextView tvBackLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,30 @@ public class RegisterActivity extends AppCompatActivity {
         etPasswordConfirmSignup = findViewById(R.id.etPasswordConfirmSignup);
         btSignup = findViewById(R.id.btSignup);
         mAuth = FirebaseAuth.getInstance();
+        ivPasswordVisibility = findViewById(R.id.ivPasswordVisibility);
+        ivConfirmPasswordVisibility = findViewById(R.id.ivConfirmPasswordVisibility);
+        tvBackLogin = findViewById(R.id.tvBackLogin);
+
+        ivPasswordVisibility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                togglePasswordVisibility();
+            }
+        });
+        ivConfirmPasswordVisibility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleConfirmPasswordVisibility();
+            }
+        });
+
+        tvBackLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(myIntent);
+            }
+        });
 
         btSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +75,32 @@ public class RegisterActivity extends AppCompatActivity {
                 Register();
             }
         });
+    }
+
+    private void togglePasswordVisibility() {
+        isPasswordVisible = !isPasswordVisible;
+        if (isPasswordVisible) {
+            // Show password
+            etPasswordSignup.setTransformationMethod(null);
+            ivPasswordVisibility.setImageResource(R.drawable.round_visibility_24);
+        } else {
+            // Hide password
+            etPasswordSignup.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            ivPasswordVisibility.setImageResource(R.drawable.round_visibility_off_24);
+        }
+    }
+
+    private void toggleConfirmPasswordVisibility() {
+        isConfirmPasswordVisible = !isConfirmPasswordVisible;
+        if (isConfirmPasswordVisible) {
+            // Show password
+            etPasswordConfirmSignup.setTransformationMethod(null);
+            ivConfirmPasswordVisibility.setImageResource(R.drawable.round_visibility_24);
+        } else {
+            // Hide password
+            etPasswordConfirmSignup.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            ivConfirmPasswordVisibility.setImageResource(R.drawable.round_visibility_off_24);
+        }
     }
 
     private void Register () {

@@ -10,14 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.thefutuscoffeeversion13.Activity.EditProfileActivity;
 import com.example.thefutuscoffeeversion13.Activity.FeedbackActivity;
 import com.example.thefutuscoffeeversion13.Activity.LoginActivity;
+import com.example.thefutuscoffeeversion13.Activity.OrderHistoryActivity;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +72,16 @@ public class OtherFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_other, container, false);
+
+        //orderHistory
+        LinearLayout orderHistory = view.findViewById(R.id.orderHistory);
+        orderHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), OrderHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //edit Profile
         Button editProfile = view.findViewById(R.id.editProfile);
