@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.thefutuscoffeeversion13.Adapter.Card1ColAdapter;
 import com.example.thefutuscoffeeversion13.Adapter.Card2ColAdapter;
 import com.example.thefutuscoffeeversion13.Adapter.CardAdapter;
+import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.CardModel;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,6 +47,7 @@ public class OrderFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ScrollView scrollView;
+    private LoadingDialog loadingDialog;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -84,6 +86,8 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order, container, false);
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.show();
         setupCardRecyclerViews(view);
         scrollView = view.findViewById(R.id.scrollView);
         setupScrollToPositionListeners(view);
@@ -138,6 +142,7 @@ public class OrderFragment extends Fragment {
                             cardModelList.add(cardModel);
                         }
                         card1ColAdapter.notifyDataSetChanged();
+                        loadingDialog.dismiss();
                     }
                 });
     }
