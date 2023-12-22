@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private String role;
     private ImageView ivPasswordVisibility;
     private boolean isPasswordVisible = false;
+    private LoadingDialog loadingDialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         tvFormSignup = findViewById(R.id.tvFormSignup);
         tvFormForgotPassword = findViewById(R.id.tvFormForgotPassword);
         ivPasswordVisibility = findViewById(R.id.ivPasswordVisibility);
+        loadingDialog = new LoadingDialog(LoginActivity.this);
         mAuth = FirebaseAuth.getInstance();
 
         btLogin.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng nhập mật khẩu!", Toast.LENGTH_SHORT).show();
             return;
         }
+        loadingDialog.show();
 
         mAuth.signInWithEmailAndPassword(StrEmail, StrPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -115,11 +120,13 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 checkRole(role);
                             } else {
+                                loadingDialog.dismiss();
                                 Log.d(TAG, "Error getting documents: ", task.getException());
                             }
                         }
                     });
                 } else {
+                    loadingDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Email hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -141,9 +148,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkRole(String role) {
         if (role.equals("admin") || role.equals("employee")) {
+            loadingDialog.dismiss();
             Intent myIntent = new Intent(LoginActivity.this, AdminActivity.class);
             startActivity(myIntent);
         } else {
+            loadingDialog.dismiss();
             Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(myIntent);
         }
