@@ -50,10 +50,21 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.github.dhaval2404:imagepicker:2.1")
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\phucd\\AndroidStudioProjects\\final_project_mobile\\TheFutusCoffeeVersion13\\app\\src\\main\\libs",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("*.aar", "*.jar")
+    )))
 //    implementation("com.github.momo-wallet:mobile-sdk:1.0.7")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.airbnb.android:lottie:4.2.2")
+
+    //zalo
+    implementation("com.squareup.okhttp3:okhttp:4.6.0")
+    implementation("commons-codec:commons-codec:1.14")
+    implementation(files("C:\\Users\\phucd\\AndroidStudioProjects\\final_project_mobile\\TheFutusCoffeeVersion13\\app\\src\\main\\libs\\zpdk-release-v3.1.aar"))
+
 
 }

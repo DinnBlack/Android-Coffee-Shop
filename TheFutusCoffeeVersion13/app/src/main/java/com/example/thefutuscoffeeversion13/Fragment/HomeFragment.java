@@ -27,6 +27,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.thefutuscoffeeversion13.Adapter.Card2ColAdapter;
 import com.example.thefutuscoffeeversion13.Adapter.CardAdapter;
+import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.CardModel;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
     // Card RecyclerView
     private ScrollView scrollView;
     private TextView btTextDialog;
+    private LoadingDialog loadingDialog;
 
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -77,6 +79,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.show();
         scrollView = view.findViewById(R.id.scHome);
         initializeViews(view);
         setupImageSlider(view);
@@ -149,6 +153,7 @@ public class HomeFragment extends Fragment {
                             cardModelList.add(cardModel);
                         }
                         cardAdapter.notifyDataSetChanged();
+                        loadingDialog.dismiss();
                     }
                 });
     }
@@ -173,6 +178,7 @@ public class HomeFragment extends Fragment {
                             cardModelList.add(cardModel);
                         }
                         card2ColAdapter.notifyDataSetChanged();
+                        loadingDialog.dismiss();
                     }
                 });
     }

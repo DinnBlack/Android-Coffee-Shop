@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.thefutuscoffeeversion13.Adapter.CardOrderAdapter;
+import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.OrderModel;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,6 +41,7 @@ public class CancelledFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LoadingDialog loadingDialog;
 
     public CancelledFragment() {
         // Required empty public constructor
@@ -77,7 +79,8 @@ public class CancelledFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cancelled, container, false);
-
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.show();
         //Current User
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -102,9 +105,10 @@ public class CancelledFragment extends Fragment {
                                 if (document.getString("status").equals("Đã hủy")) {
                                     OrderModel cardModel = document.toObject(OrderModel.class);
                                     orderModelList.add(cardModel);
-                                    cardOrderAdapter.notifyDataSetChanged();
                                 }
                             }
+                            cardOrderAdapter.notifyDataSetChanged();
+                            loadingDialog.dismiss();
                         }
                     }
                 });

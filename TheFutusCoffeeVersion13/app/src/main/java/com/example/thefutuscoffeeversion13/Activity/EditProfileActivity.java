@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,13 +48,15 @@ public class EditProfileActivity extends AppCompatActivity {
     private Uri imageUri;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private LoadingDialog loadingDialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
         //find item
         tbEditProfile = findViewById(R.id.tbEditProfile);
         avatar = findViewById(R.id.avatar);
@@ -92,6 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         address.setText(document.getString("address"));
                         birthday.setText(document.getString("birthday"));
                     }
+                    loadingDialog.dismiss();
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }

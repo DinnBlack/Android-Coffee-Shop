@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thefutuscoffeeversion13.Adapter.Card2ColAdapter;
 import com.example.thefutuscoffeeversion13.Adapter.CartDialogAdapter;
+import com.example.thefutuscoffeeversion13.Api.CreateOrder;
 import com.example.thefutuscoffeeversion13.Domain.CardModel;
 import com.example.thefutuscoffeeversion13.Domain.ToppingModel;
 import com.example.thefutuscoffeeversion13.Fragment.DiscountFragment;
@@ -38,7 +40,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -67,6 +71,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import nl.joery.animatedbottombar.AnimatedBottomBar;
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPayError;
+import vn.zalopay.sdk.ZaloPaySDK;
+import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment = new HomeFragment();
@@ -90,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        // ZaloPay SDK Init
+        ZaloPaySDK.init(2553, Environment.SANDBOX);
         Button showCart = findViewById(R.id.showCart);
         showCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +133,76 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void requestZalo() {
+        CreateOrder orderApi = new CreateOrder();
+
+        try {
+            JSONObject data = orderApi.createOrder("10000");
+            String code = data.getString("return_code");
+            Toast.makeText(getApplicationContext(), "return_code: " + code, Toast.LENGTH_LONG).show();
+
+            if (code.equals("1")) {
+
+                String token = data.getString("zp_trans_token");
+                ZaloPaySDK.getInstance().payOrder(MainActivity.this, token, "demozpdk://app", new PayOrderListener() {
+                    @Override
+                    public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new AlertDialog.Builder(MainActivity.this)
+                                        .setTitle("Payment Success")
+                                        .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        })
+                                        .setNegativeButton("Cancel", null).show();
+                            }
+
+                        });
+                    }
+
+                    @Override
+                    public void onPaymentCanceled(String zpTransToken, String appTransID) {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("User Cancel Payment")
+                                .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .setNegativeButton("Cancel", null).show();
+                    }
+
+                    @Override
+                    public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Payment Fail")
+                                .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .setNegativeButton("Cancel", null).show();
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ZaloPaySDK.getInstance().onResult(intent);
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -258,6 +341,9 @@ public class MainActivity extends AppCompatActivity {
         btPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = userEmail;
+                String phone = phoneNumberReceiver.getText().toString();
+                requestZalo();
                 order(dialog, userEmail, paymentAmount, nameReceiver, phoneNumberReceiver, addressReceiver);
                 deleteAllDataInCardCollection(userEmail);
             }
