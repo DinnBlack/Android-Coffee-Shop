@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,7 @@ import java.util.Calendar;
 public class AdminActivity extends AppCompatActivity {
     private TextView currentTimeOfDay, tvCurrentAccountName;
     private String role;
-    private CardView btListProducts, btListAccounts, btListRevenue;
+    private CardView btListProducts, btListAccounts, btListRevenue, cardViewOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,14 @@ public class AdminActivity extends AppCompatActivity {
         btListProducts = findViewById(R.id.btListProducts);
         btListAccounts = findViewById(R.id.btListAccounts);
         btListRevenue = findViewById(R.id.btListRevenue);
+        cardViewOrder = findViewById(R.id.cardViewOrder);
+
+        cardViewOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, AdminOrderActivity.class));
+            }
+        });
         currentTime();
         checkRole();
     }

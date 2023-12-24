@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.HomeFragment">
+    tools:context=".Activity.AdminActivity">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -72,7 +72,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/btListStudents"
+            android:id="@+id/cardViewOrder"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:cardCornerRadius="16dp"
@@ -86,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+              >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+               >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -148,8 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -182,7 +181,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:onClick="ListStudentsClick">
+              >
 
                 <TextView
                     android:layout_width="match_parent"
