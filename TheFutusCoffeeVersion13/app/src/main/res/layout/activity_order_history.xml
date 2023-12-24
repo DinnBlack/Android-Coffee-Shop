@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1F1F1"
     tools:context=".Activity.OrderHistoryActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -44,7 +45,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="64dp"
         android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="@+id/botnavBar"
+        app:layout_constraintBottom_toBottomOf="@+id/tbOrderHistory"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbOrderHistory">
 

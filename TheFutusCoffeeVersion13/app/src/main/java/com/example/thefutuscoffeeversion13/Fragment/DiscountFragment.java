@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.thefutuscoffeeversion13.Adapter.CardAdapter;
 import com.example.thefutuscoffeeversion13.Adapter.CardVoucherAdapter;
+import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.CardModel;
 import com.example.thefutuscoffeeversion13.Domain.CardVoucherModel;
 import com.example.thefutuscoffeeversion13.R;
@@ -47,6 +48,7 @@ public class DiscountFragment extends Fragment {
     CardVoucherAdapter cardVoucherAdapter;
     List<CardVoucherModel> cardVoucherModelList;
     FirebaseFirestore dbVoucher;
+    private LoadingDialog loadingDialog;
 
     public DiscountFragment() {
         // Required empty public constructor
@@ -85,7 +87,8 @@ public class DiscountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
-
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.show();
         rvCardVoucher = view.findViewById(R.id.rvCardVoucher);
         dbVoucher = FirebaseFirestore.getInstance();
         rvCardVoucher.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -102,8 +105,9 @@ public class DiscountFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 CardVoucherModel cardModel = document.toObject(CardVoucherModel.class);
                                 cardVoucherModelList.add(cardModel);
-                                cardVoucherAdapter.notifyDataSetChanged();
                             }
+                            cardVoucherAdapter.notifyDataSetChanged();
+                            loadingDialog.dismiss();
                         }
                     }
                 });

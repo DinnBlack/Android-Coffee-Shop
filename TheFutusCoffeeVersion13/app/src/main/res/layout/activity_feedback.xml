@@ -21,13 +21,14 @@
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/btGoiDien"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
+        android:background="#ffffff"
         app:layout_constraintTop_toBottomOf="@+id/tbFeedback"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp">
@@ -53,6 +54,7 @@
                 android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/sdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksandmedium"
@@ -68,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#E8E8E8"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toBottomOf="@+id/btGoiDien"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="10dp" />
 
@@ -76,16 +78,17 @@
         android:id="@+id/ln2"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:background="#ffffff"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/btGoiDien"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/round_email_24" />
+            android:src="@drawable/round_link_24" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksandmedium"
-                android:text="Email"
+                android:text="Facebook"
                 android:textColor="#000000"
                 android:textSize="20dp" />
 
@@ -106,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksandmedium"
-                android:text="thefutuscoffee@gmail.com"
+                android:text="facebook.com/phuchoang1803"
                 android:textColor="#000000"
                 android:textSize="16dp" />
 

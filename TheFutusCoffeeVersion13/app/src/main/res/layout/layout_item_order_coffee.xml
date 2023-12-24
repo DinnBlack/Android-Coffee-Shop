@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="#ffffff"
         android:drawableLeft="@drawable/baseline_add_circle_24"
         android:gravity="center"/>
 

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.thefutuscoffeeversion13.Adapter.CardOrderAdapter;
 import com.example.thefutuscoffeeversion13.Adapter.CardVoucherAdapter;
+import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.CardVoucherModel;
 import com.example.thefutuscoffeeversion13.Domain.OrderModel;
 import com.example.thefutuscoffeeversion13.R;
@@ -42,6 +43,7 @@ public class ProcessingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LoadingDialog loadingDialog;
 
     public ProcessingFragment() {
         // Required empty public constructor
@@ -79,7 +81,8 @@ public class ProcessingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_processing, container, false);
-
+        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.show();
         //Current User
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -94,6 +97,11 @@ public class ProcessingFragment extends Fragment {
         CardOrderAdapter cardOrderAdapter = new CardOrderAdapter(getActivity(), orderModelList);
         rvProcessing.setAdapter(cardOrderAdapter);
 
+        loadOrderHistoryForUser(db, userEmail, orderModelList, cardOrderAdapter);
+        return view;
+    }
+
+    private void loadOrderHistoryForUser(FirebaseFirestore db, String userEmail, List<OrderModel> orderModelList, CardOrderAdapter cardOrderAdapter) {
         db.collection("Users").document(userEmail).collection("Order")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -104,13 +112,12 @@ public class ProcessingFragment extends Fragment {
                                 if (document.getString("status").equals("Đang xử lý")) {
                                     OrderModel cardModel = document.toObject(OrderModel.class);
                                     orderModelList.add(cardModel);
-                                    cardOrderAdapter.notifyDataSetChanged();
                                 }
                             }
+                            cardOrderAdapter.notifyDataSetChanged();
+                            loadingDialog.dismiss();
                         }
                     }
                 });
-
-        return view;
     }
 }

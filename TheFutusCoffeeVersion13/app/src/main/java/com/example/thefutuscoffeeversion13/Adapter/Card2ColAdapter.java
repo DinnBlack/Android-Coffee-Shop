@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.thefutuscoffeeversion13.Domain.CardModel;
+import com.example.thefutuscoffeeversion13.Domain.OrderModel;
 import com.example.thefutuscoffeeversion13.Domain.ToppingModel;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -125,24 +126,22 @@ public class Card2ColAdapter extends RecyclerView.Adapter<Card2ColAdapter.ViewHo
         tvTotalPrice.setText(tvPriceItemDialog.getText().toString().trim());
 
         //show data topping
+        if (cardModel.getTopping().equals("Coffee")) {
+            showToppingDialog(dialog, toppingAdapter, "Coffee");
+        }
+        if (cardModel.getTopping().equals("GreenTea")) {
+            showToppingDialog(dialog, toppingAdapter, "GreenTea");
+        }
+        if (cardModel.getTopping().equals("HiTea")) {
+            showToppingDialog(dialog, toppingAdapter, "HiTea");
+        }
+        if (cardModel.getTopping().equals("HotDrink")) {
+            showToppingDialog(dialog, toppingAdapter, "HotDrink");
+        }
+        if (cardModel.getTopping().equals("MilkTea")) {
+            showToppingDialog(dialog, toppingAdapter, "MilkTea");
+        }
 
-        ToppingAdapter toppingAdapter;
-        List<ToppingModel> addToppingList = new ArrayList<>();
-        ListView toppingList = dialog.findViewById(R.id.toppingList);
-        toppingAdapter = new ToppingAdapter(context, addToppingList);
-        toppingList.setAdapter(toppingAdapter);
-        FirebaseFirestore dbTopping = FirebaseFirestore.getInstance();
-        dbTopping.collection("Products").document("Topping").collection("Coffee")
-                .get()
-                .addOnCompleteListener(task -> {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String title = document.getString("title");
-                        String price = document.getString("price");
-
-                        addToppingList.add(new ToppingModel(title, price));
-                    }
-                    toppingAdapter.notifyDataSetChanged();
-                });
 
         //Set Price Size
         int productPrice = Integer.parseInt(cardModel.getPrice().toString().trim());
@@ -258,8 +257,8 @@ public class Card2ColAdapter extends RecyclerView.Adapter<Card2ColAdapter.ViewHo
 
                     FirebaseFirestore dbList = FirebaseFirestore.getInstance();
                     CollectionReference listCard = dbList.collection("Users").document(userEmail).collection("Card");
-                    Query queryList = listCard.whereEqualTo("title", tvTitleItemDialog.getText().toString() + selectedSize + selectedToppingTitle);
-
+                    String idValue = tvTitleItemDialog.getText().toString() + selectedSize + selectedToppingTitle;
+                    Query queryList = listCard.whereEqualTo("id", idValue);
                     queryList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -289,6 +288,7 @@ public class Card2ColAdapter extends RecyclerView.Adapter<Card2ColAdapter.ViewHo
                                         items.put("quantity", totalQuantity.toString());
                                         items.put("topping", selectedToppingTitle);
                                         items.put("totalprice", totalPrice.toString());
+                                        items.put("id", idValue);
                                         String documentCardName = tvTitleItemDialog.getText().toString().trim() + selectedSize + selectedToppingTitle;
                                         dbCard.collection("Users").document(userEmail).collection("Card").document(documentCardName)
                                                 .set(items)
@@ -312,6 +312,7 @@ public class Card2ColAdapter extends RecyclerView.Adapter<Card2ColAdapter.ViewHo
                                         items.put("quantity", quantityOfItemCard.getText().toString().trim());
                                         items.put("size", selectedSize);
                                         items.put("topping", selectedToppingTitle);
+                                        items.put("id", idValue);
                                         items.put("totalprice", removeCurrencyFormat(tvTotalPrice.getText().toString().trim()).substring(0, removeCurrencyFormat(tvTotalPrice.getText().toString().trim()).length() - 1));
                                         String documentCardName = tvTitleItemDialog.getText().toString().trim() + selectedToppingTitle;
                                         dbCard.collection("Users").document(userEmail).collection("Card").document(documentCardName)
@@ -369,6 +370,31 @@ public class Card2ColAdapter extends RecyclerView.Adapter<Card2ColAdapter.ViewHo
 
     private static String removeCurrencyFormat(String formattedNumber) {
         return formattedNumber.replace(".", "");
+    }
+
+    private void showToppingDialog(Dialog dialog, ToppingAdapter toppingAdapter, String collection) {
+        ListView toppingList = dialog.findViewById(R.id.toppingList);
+        toppingAdapter = new ToppingAdapter(context, addToppingList);
+        toppingList.setAdapter(toppingAdapter);
+
+        FirebaseFirestore dbTopping = FirebaseFirestore.getInstance();
+        ToppingAdapter finalToppingAdapter = toppingAdapter;
+        dbTopping.collection("Products").document("Topping").collection(collection)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        addToppingList.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String title = document.getString("title");
+                            String price = document.getString("price");
+
+                            addToppingList.add(new ToppingModel(title, price));
+                        }
+                        finalToppingAdapter.notifyDataSetChanged();
+                    } else {
+                        Log.e("Card2ColAdapter", "Error getting topping data", task.getException());
+                    }
+                });
     }
 
 
