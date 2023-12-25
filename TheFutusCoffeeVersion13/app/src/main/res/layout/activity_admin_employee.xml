@@ -27,12 +27,12 @@
         app:abb_indicatorAppearance="round"
         app:abb_indicatorColor="#000000"
         app:abb_indicatorHeight="5dp"
-        app:abb_indicatorMargin="90dp"
+        app:abb_indicatorMargin="30dp"
         app:abb_selectedIndex="0"
         app:abb_selectedTabType="text"
         app:abb_tabColor="#5E5E5E"
         app:abb_tabColorSelected="#000000"
-        app:abb_tabs="@menu/menu_admin_bottom_nav"
+        app:abb_tabs="@menu/menu_admin_employee_nav"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +45,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="64dp"
         android:layout_marginBottom="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbOrderHistory">
 

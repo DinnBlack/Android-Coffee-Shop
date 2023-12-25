@@ -26,7 +26,7 @@ public class CreateOrder {
         private CreateOrderData(String amount) throws Exception {
             long appTime = new Date().getTime();
             AppId = String.valueOf(AppInfo.APP_ID);
-            AppUser = "Android_Demo";
+            AppUser = "The Futus Coffee";
             AppTime = String.valueOf(appTime);
             Amount = amount;
             AppTransId = Helpers.getAppTransId();

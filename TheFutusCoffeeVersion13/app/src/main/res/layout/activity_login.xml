@@ -59,7 +59,7 @@
             android:textColor="#000000"
             android:textColorHint="#5E5E5E"
             android:textSize="16dp"
-            android:text="lamtruongphu2003@gmail.com"/>
+            android:text="admin@gmail.com"/>
 
         <LinearLayout
             android:layout_width="match_parent"

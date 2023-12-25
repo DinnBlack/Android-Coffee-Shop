@@ -48,6 +48,14 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminActivity.this, AdminOrderActivity.class));
             }
         });
+
+        btListAccounts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, AdminEmployeeActivity.class));
+            }
+        });
+
         currentTime();
         checkRole();
     }

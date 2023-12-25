@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.thefutuscoffeeversion13.Adapter.CardOrderAdapter;
+import com.example.thefutuscoffeeversion13.Adapter.CardUserOrderAdapter;
 import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.OrderModel;
 import com.example.thefutuscoffeeversion13.R;
@@ -92,7 +92,7 @@ public class DeliveredFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         rvDelivered.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         List<OrderModel> orderModelList = new ArrayList<>();
-        CardOrderAdapter cardOrderAdapter = new CardOrderAdapter(getActivity(), orderModelList);
+        CardUserOrderAdapter cardOrderAdapter = new CardUserOrderAdapter(getActivity(), orderModelList);
         rvDelivered.setAdapter(cardOrderAdapter);
 
         db.collection("Users").document(userEmail).collection("Order")

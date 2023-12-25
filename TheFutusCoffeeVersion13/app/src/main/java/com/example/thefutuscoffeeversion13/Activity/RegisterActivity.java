@@ -131,6 +131,10 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     Map<String, Object> items = new HashMap<>();
+                    Map<String, Object> items1 = new HashMap<>();
+                    items1.put("email", StrEmail);
+                    db.collection("Users").document(StrEmail)
+                            .set(items1);
                     items.put("role", "customer");
                     db.collection("Users").document(etEmailSignup.getText().toString().trim()).collection("Information").document("information")
                             .set(items);

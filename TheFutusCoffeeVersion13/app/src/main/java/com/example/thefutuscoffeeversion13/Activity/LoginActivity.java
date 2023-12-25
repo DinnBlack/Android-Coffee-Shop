@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkRole(String role) {
-        if (role.equals("admin") || role.equals("employee")) {
+        if (role.equals("admin") || role.equals("Nhân viên")) {
             loadingDialog.dismiss();
             Intent myIntent = new Intent(LoginActivity.this, AdminActivity.class);
             startActivity(myIntent);

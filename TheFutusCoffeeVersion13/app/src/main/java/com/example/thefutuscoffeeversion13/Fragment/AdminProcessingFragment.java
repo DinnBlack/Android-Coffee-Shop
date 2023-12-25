@@ -25,9 +25,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,7 +91,7 @@ public class AdminProcessingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_admin_processing, container, false);
         loadingDialog = new LoadingDialog(getActivity());
-//        loadingDialog.show();
+        loadingDialog.show();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         assert currentUser != null;
@@ -106,30 +113,54 @@ public class AdminProcessingFragment extends Fragment {
     private void loadOrderHistoryForAllUser(FirebaseFirestore db, String userEmail, List<OrderModel> orderModelList, CardOrderAdapter cardOrderAdapter) {
         db.collection("Users").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+                List<OrderModel> tempList = new ArrayList<>();
+
+                int userCount = task.getResult().size();
+                AtomicInteger usersProcessed = new AtomicInteger(0);
+
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     String email = document.getString("email");
 
-
                     db.collection("Users").document(email).collection("Order")
                             .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot orderDocument : task.getResult()) {
-                                            if (orderDocument.getString("status").equals("Đang xử lý")) {
-                                                OrderModel cardModel = orderDocument.toObject(OrderModel.class);
-                                                orderModelList.add(cardModel);
-                                                cardOrderAdapter.notifyDataSetChanged();
-                                            }
+                            .addOnCompleteListener(userOrderTaskResult -> {
+                                if (userOrderTaskResult.isSuccessful()) {
+                                    for (QueryDocumentSnapshot orderDocument : Objects.requireNonNull(userOrderTaskResult.getResult())) {
+                                        if (orderDocument.getString("status").equals("Đang xử lý")) {
+                                            OrderModel orderModel = orderDocument.toObject(OrderModel.class);
+                                            tempList.add(orderModel);
                                         }
                                     }
                                 }
+                                usersProcessed.getAndIncrement();
+                                if (usersProcessed.get() == userCount) {
+                                    Collections.sort(tempList, new Comparator<OrderModel>() {
+                                        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+
+                                        @Override
+                                        public int compare(OrderModel o1, OrderModel o2) {
+                                            try {
+                                                Date dateTime1 = dateTimeFormat.parse(o1.getDay() + " " + o1.getTime());
+                                                Date dateTime2 = dateTimeFormat.parse(o2.getDay() + " " + o2.getTime());
+                                                return dateTime1.compareTo(dateTime2);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+                                            return 0;
+                                        }
+                                    });
+                                    orderModelList.clear();
+                                    orderModelList.addAll(tempList);
+                                    cardOrderAdapter.notifyDataSetChanged();
+
+                                }
                             });
                 }
+                loadingDialog.dismiss();
             } else {
                 Log.d("TAG", "Error getting documents: ", task.getException());
             }
         });
     }
+
 }

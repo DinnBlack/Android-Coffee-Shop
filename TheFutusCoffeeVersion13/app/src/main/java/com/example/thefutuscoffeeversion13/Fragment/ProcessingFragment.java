@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.thefutuscoffeeversion13.Adapter.CardOrderAdapter;
+import com.example.thefutuscoffeeversion13.Adapter.CardUserOrderAdapter;
 import com.example.thefutuscoffeeversion13.Adapter.CardVoucherAdapter;
 import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.CardVoucherModel;
@@ -94,14 +94,14 @@ public class ProcessingFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         rvProcessing.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         List<OrderModel> orderModelList = new ArrayList<>();
-        CardOrderAdapter cardOrderAdapter = new CardOrderAdapter(getActivity(), orderModelList);
+        CardUserOrderAdapter cardOrderAdapter = new CardUserOrderAdapter(getActivity(), orderModelList);
         rvProcessing.setAdapter(cardOrderAdapter);
 
         loadOrderHistoryForUser(db, userEmail, orderModelList, cardOrderAdapter);
         return view;
     }
 
-    private void loadOrderHistoryForUser(FirebaseFirestore db, String userEmail, List<OrderModel> orderModelList, CardOrderAdapter cardOrderAdapter) {
+    private void loadOrderHistoryForUser(FirebaseFirestore db, String userEmail, List<OrderModel> orderModelList, CardUserOrderAdapter cardOrderAdapter) {
         db.collection("Users").document(userEmail).collection("Order")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
