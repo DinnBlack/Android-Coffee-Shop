@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
+import com.example.thefutuscoffeeversion13.Fragment.AdminDeliveredFragment;
 import com.example.thefutuscoffeeversion13.Fragment.AdminDeliveringFragment;
 import com.example.thefutuscoffeeversion13.Fragment.AdminProcessingFragment;
 import com.example.thefutuscoffeeversion13.Fragment.CancelledFragment;
@@ -47,9 +48,7 @@ public class AdminOrderActivity extends AppCompatActivity {
                 } else if (tab1.getId() == R.id.action_Delivering) {
                     replaceFragment(new AdminDeliveringFragment());
                 } else if (tab1.getId() == R.id.action_Delivered) {
-                    replaceFragment(new DeliveredFragment());
-                } else if (tab1.getId() == R.id.action_cancelled) {
-                    replaceFragment(new CancelledFragment());
+                    replaceFragment(new AdminDeliveredFragment());
                 }
             }
 

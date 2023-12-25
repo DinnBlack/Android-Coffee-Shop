@@ -56,6 +56,13 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
+        btListRevenue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, AdminRevenueActivity.class));
+            }
+        });
+
         currentTime();
         checkRole();
     }

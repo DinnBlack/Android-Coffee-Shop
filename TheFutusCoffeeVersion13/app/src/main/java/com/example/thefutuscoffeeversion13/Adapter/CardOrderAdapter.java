@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +40,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CardOrderAdapter extends RecyclerView.Adapter<CardOrderAdapter.ViewHolder>{
 
@@ -80,7 +89,106 @@ public class CardOrderAdapter extends RecyclerView.Adapter<CardOrderAdapter.View
         holder.totalPriceOrder.setText(list.get(position).getPrice());
         holder.statusOrder.setText(list.get(position).getStatus());
         holder.user.setText(list.get(position).getUser());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCartDialog(Gravity.CENTER, list.get(position).getIdOrder(), list.get(position).getName(), list.get(position).getPhoneNumber(), list.get(position).getAddress(), list.get(position).getPrice(), list.get(position).getDay(), list.get(position).getTime(), list.get(position).getStatus(), list.get(position).getPaymentStatus());
+            }
+        });
     }
+
+    private void showCartDialog(int gravity, String idOrder, String name, String phoneNumber, String address, String price, String day, String time, String status, String paymentStatus) {
+
+        //Setup show dialog
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_detailed_order);
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+
+        dialog.show();
+
+        //find item
+        EditText nameReceiver = dialog.findViewById(R.id.nameReceiver);
+        EditText phoneNumberReceiver = dialog.findViewById(R.id.phoneNumberReceiver);
+        RecyclerView listProductsSelected = dialog.findViewById(R.id.listProductsSelected);
+        TextView paymentAmount = dialog.findViewById(R.id.paymentAmount);
+        TextView statusOrder = dialog.findViewById(R.id.statusOrder);
+        TextView paymentStatusOrder = dialog.findViewById(R.id.paymentStatusOrder);
+        TextView dayOrder = dialog.findViewById(R.id.dayOrder);
+        TextView timeOrder = dialog.findViewById(R.id.timeOrder);
+        ImageView closeDialog = dialog.findViewById(R.id.closeDialog);
+        EditText addressReceiver = dialog.findViewById(R.id.addressReceiver);
+
+        //Close Dialog
+        closeDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        //Current User
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        assert currentUser != null;
+        String userEmail = currentUser.getEmail();
+
+        //fill data user
+        assert userEmail != null;
+
+        nameReceiver.setText(name);
+        nameReceiver.setEnabled(false);
+        phoneNumberReceiver.setText(phoneNumber);
+        phoneNumberReceiver.setEnabled(false);
+        addressReceiver.setText(address);
+        addressReceiver.setEnabled(false);
+        paymentAmount.setText(price);
+        statusOrder.setText(status);
+        paymentStatusOrder.setText(paymentStatus);
+        dayOrder.setText(day);
+        timeOrder.setText(time);
+
+        //fill data product
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore dbSelectedProducts = FirebaseFirestore.getInstance();
+        listProductsSelected.setLayoutManager(new GridLayoutManager(context, 1));
+        List<CardModel> cardModelList = new ArrayList<>();
+        CartDialogAdapter cartDialogAdapter = new CartDialogAdapter(context, cardModelList);
+        listProductsSelected.setAdapter(cartDialogAdapter);
+
+
+        db.collection("Users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    String email = document.getString("email");
+                    dbSelectedProducts
+                            .collection("Users").document(email).collection("Order").document(idOrder).collection("Cart")
+                            .get()
+                            .addOnCompleteListener(taskOrder -> {
+                                if (taskOrder.isSuccessful()) {
+                                    for (QueryDocumentSnapshot documentOrder : taskOrder.getResult()) {
+                                        CardModel cardModel = documentOrder.toObject(CardModel.class);
+                                        cardModelList.add(cardModel);
+                                    }
+                                    cartDialogAdapter.notifyDataSetChanged();
+                                }
+                            });
+                }
+            } else {
+                Log.d("TAG", "Error getting documents: ", task.getException());
+            }
+        });
+    }
+
     @Override
     public int getItemCount() {
         return list.size();
