@@ -82,25 +82,16 @@ public class MainActivity extends AppCompatActivity {
     private DiscountFragment discountFragment = new DiscountFragment();
     private OtherFragment otherFragment = new OtherFragment();
 
-    //Momo
-    private String amount = "10000";
-    private String fee = "0";
-    int environment = 0;
-    private String merchantName = "Thanh toán đơn hàng";
-    private String merchantCode = "SCB01";
-    private String merchantNameLabel = "The Futus Coffee";
-    private String description = "Thanh toán đơn hàng tại The Futus Coffee";
-
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        TextView userName = findViewById(R.id.userName);
+        checkCurrentUser(userName);
         // ZaloPay SDK Init
         ZaloPaySDK.init(2553, Environment.SANDBOX);
         Button showCart = findViewById(R.id.showCart);
@@ -135,11 +126,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void requestZalo() {
+    private void checkCurrentUser(TextView userName) {
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userEmail = currentUser.getEmail();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("Users").document(userEmail).collection("Information").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        userName.setText(document.getString("name"));
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void requestZalo(TextView paymentAmount) {
         CreateOrder orderApi = new CreateOrder();
 
         try {
-            JSONObject data = orderApi.createOrder("10000");
+            JSONObject data = orderApi.createOrder(removeLastCharacter(removeCurrencyFormat(paymentAmount.getText().toString())));
             String code = data.getString("return_code");
             Toast.makeText(getApplicationContext(), "return_code: " + code, Toast.LENGTH_LONG).show();
 
@@ -262,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Set Spinner payment
-        String[] valueSpinner = {"Thanh toán khi nhận hàng", "Momo"};
+        String[] valueSpinner = {"Thanh toán khi nhận hàng", "ZaloPay"};
         ArrayList<String> arrayListSpinner = new ArrayList<>(Arrays.asList(valueSpinner));
         ArrayAdapter<String> arrayAdapterSpinner = new ArrayAdapter<>(this, R.layout.style_spinner, arrayListSpinner);
         payment.setAdapter(arrayAdapterSpinner);
@@ -341,17 +354,38 @@ public class MainActivity extends AppCompatActivity {
         btPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = userEmail;
-                String phone = phoneNumberReceiver.getText().toString();
-                requestZalo();
-                order(dialog, userEmail, paymentAmount, nameReceiver, phoneNumberReceiver, addressReceiver);
-                deleteAllDataInCardCollection(userEmail);
+                //check
+                if (TextUtils.isEmpty(nameReceiver.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "Chưa nhập tên người nhận", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(phoneNumberReceiver.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "Chưa nhập số điện thoại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(addressReceiver.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "Chưa nhập địa chỉ nhận hàng", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ("0đ".equals(paymentAmount.getText().toString().trim())) {
+                    Toast.makeText(MainActivity.this, "Chưa có sản phẩm nào được thêm", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (String.valueOf(payment.getSelectedItem()).trim().equals("Thanh toán khi nhận hàng")) {
+                    order(dialog, userEmail, paymentAmount, nameReceiver, phoneNumberReceiver, addressReceiver, "Chưa thanh toán");
+                    deleteAllDataInCardCollection(userEmail);
+                }
+                if (String.valueOf(payment.getSelectedItem()).trim().equals("ZaloPay")) {
+                    requestZalo(paymentAmount);
+                    order(dialog, userEmail, paymentAmount, nameReceiver, phoneNumberReceiver, addressReceiver, "Đã thanh toán");
+                    deleteAllDataInCardCollection(userEmail);
+                }
             }
         });
 
     }
 
-    private void order (Dialog dialog, String userEmail, TextView paymentAmount, EditText nameReceiver, EditText phoneNumberReceiver, EditText addressReceiver) {
+    private void order (Dialog dialog, String userEmail, TextView paymentAmount, EditText nameReceiver, EditText phoneNumberReceiver, EditText addressReceiver, String paymentStatus) {
         //Current time
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
@@ -365,23 +399,7 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         String formattedTime = timeFormat.format(currentDate);
 
-        //check
-        if (TextUtils.isEmpty(nameReceiver.getText().toString())) {
-            Toast.makeText(this, "Chưa nhập tên người nhận", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(phoneNumberReceiver.getText().toString())) {
-            Toast.makeText(this, "Chưa nhập số điện thoại", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(addressReceiver.getText().toString())) {
-            Toast.makeText(this, "Chưa nhập địa chỉ nhận hàng", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if ("0đ".equals(paymentAmount.getText().toString().trim())) {
-            Toast.makeText(this, "Chưa có sản phẩm nào được thêm", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
         FirebaseFirestore dbCart = FirebaseFirestore.getInstance();
         dbCart.collection("Users").document(userEmail).collection("Card")
@@ -415,7 +433,8 @@ public class MainActivity extends AppCompatActivity {
         items.put("time", formattedTime);
         items.put("daytime", formattedDateTime);
         items.put("status", "Đang xử lý");
-        items.put("paymentstatus", "Chưa thanh toán");
+        items.put("paymentstatus", paymentStatus);
+        items.put("user", userEmail);
         dbOrder.collection("Users").document(userEmail).collection("Order").document(idOrder)
                 .set(items)
                 .addOnCompleteListener(innerTask -> {
@@ -504,85 +523,4 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .show();
     }
-
-    //Get token through MoMo app
-//    private void requestPayment(String idDonHang) {
-//        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
-//        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
-//
-//        Map<String, Object> eventValue = new HashMap<>();
-//        //client Required
-//        eventValue.put("merchantname", merchantName); //Tên đối tác. được đăng ký tại https://business.momo.vn. VD: Google, Apple, Tiki , CGV Cinemas
-//        eventValue.put("merchantcode", merchantCode); //Mã đối tác, được cung cấp bởi MoMo tại https://business.momo.vn
-//        eventValue.put("amount", amount); //Kiểu integer
-//        eventValue.put("orderId", idDonHang); //uniqueue id cho Bill order, giá trị duy nhất cho mỗi đơn hàng
-//        eventValue.put("orderLabel", idDonHang); //gán nhãn
-//
-//        //client Optional - bill info
-//        eventValue.put("merchantnamelabel", "Dịch vụ");//gán nhãn
-//        eventValue.put("fee", "0"); //Kiểu integer
-//        eventValue.put("description", description); //mô tả đơn hàng - short description
-//
-//        //client extra data
-//        eventValue.put("requestId",  merchantCode+"merchant_billId_"+System.currentTimeMillis());
-//        eventValue.put("partnerCode", merchantCode);
-//        //Example extra data
-//        JSONObject objExtraData = new JSONObject();
-//        try {
-//            objExtraData.put("site_code", "008");
-//            objExtraData.put("site_name", "CGV Cresent Mall");
-//            objExtraData.put("screen_code", 0);
-//            objExtraData.put("screen_name", "Special");
-//            objExtraData.put("movie_name", "Kẻ Trộm Mặt Trăng 3");
-//            objExtraData.put("movie_format", "2D");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        eventValue.put("extraData", objExtraData.toString());
-//
-//        eventValue.put("extra", "");
-//        AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
-//
-//
-//    }
-//    //Get token callback from MoMo app an submit to server side
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
-//            if(data != null) {
-//                if(data.getIntExtra("status", -1) == 0) {
-//                    //TOKEN IS AVAILABLE
-//                    Log.d("thangcong", data.getStringExtra("message"));
-//                    String token = data.getStringExtra("data"); //Token response
-//                    String phoneNumber = data.getStringExtra("phonenumber");
-//                    String env = data.getStringExtra("env");
-//                    if(env == null){
-//                        env = "app";
-//                    }
-//
-//                    if(token != null && !token.equals("")) {
-//                        // TODO: send phoneNumber & token to your server side to process payment with MoMo server
-//                        // IF Momo topup success, continue to process your order
-//                    } else {
-//                        Log.d("thanhcong", data.getStringExtra("Không thành công"));
-//                    }
-//                } else if(data.getIntExtra("status", -1) == 1) {
-//                    //TOKEN FAIL
-//                    String message = data.getStringExtra("message") != null?data.getStringExtra("message"):"Thất bại";
-//                    Log.d("thanhcong", data.getStringExtra("Không thành công"));
-//                } else if(data.getIntExtra("status", -1) == 2) {
-//                    //TOKEN FAIL
-//                    Log.d("thanhcong", data.getStringExtra("Không thành công"));
-//                } else {
-//                    //TOKEN FAIL
-//                    Log.d("thanhcong", data.getStringExtra("Không thành công"));
-//                }
-//            } else {
-//                Log.d("thanhcong", data.getStringExtra("Không thành công"));
-//            }
-//        } else {
-//            Log.d("thanhcong", data.getStringExtra("Không thành công"));
-//        }
-//    }
-
 }

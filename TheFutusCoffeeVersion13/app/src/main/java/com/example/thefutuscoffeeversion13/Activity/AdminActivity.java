@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,29 +30,34 @@ import java.util.Calendar;
 public class AdminActivity extends AppCompatActivity {
     private TextView currentTimeOfDay, tvCurrentAccountName;
     private String role;
-    private CardView btListOrders, btListProducts, btListAccounts, btListRevenue;
-    @SuppressLint("MissingInflatedId")
+    private CardView btListProducts, btListAccounts, btListRevenue, cardViewOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         currentTimeOfDay = findViewById(R.id.currentTimeOfDay);
         tvCurrentAccountName = findViewById(R.id.tvCurrentAccountName);
-        btListOrders = findViewById(R.id.btListOrders);
         btListProducts = findViewById(R.id.btListProducts);
         btListAccounts = findViewById(R.id.btListAccounts);
         btListRevenue = findViewById(R.id.btListRevenue);
-        currentTime();
-        checkRole();
+        cardViewOrder = findViewById(R.id.cardViewOrder);
 
-        //intent orders
-        btListOrders.setOnClickListener(new View.OnClickListener() {
+        cardViewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminActivity.this, ManageOrderActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(AdminActivity.this, AdminOrderActivity.class));
             }
         });
+
+        btListAccounts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, AdminEmployeeActivity.class));
+            }
+        });
+
+        currentTime();
+        checkRole();
     }
 
     private void currentTime () {

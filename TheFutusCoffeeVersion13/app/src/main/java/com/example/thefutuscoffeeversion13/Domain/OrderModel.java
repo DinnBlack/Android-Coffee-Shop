@@ -1,11 +1,11 @@
 package com.example.thefutuscoffeeversion13.Domain;
 
 public class OrderModel {
-    private String name, idOrder, daytime, day, time, status, price, phoneNumber, address;
+    private String name, idOrder, daytime, day, time, status, price, phoneNumber, address, user, paymentstatus;
     public OrderModel() {
     }
 
-    public OrderModel(String name, String idOrder, String daytime, String day, String time, String status, String price, String phoneNumber, String address) {
+    public OrderModel(String name, String idOrder, String daytime, String day, String time, String status, String price, String phoneNumber, String address, String user, String paymentstatus) {
         this.name = name;
         this.idOrder = idOrder;
         this.daytime = daytime;
@@ -15,6 +15,8 @@ public class OrderModel {
         this.price = price;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.user = user;
+        this.paymentstatus = paymentstatus;
     }
 
     public String getAddress() {
@@ -87,5 +89,21 @@ public class OrderModel {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPaymentStatus() {
+        return paymentstatus;
+    }
+
+    public void setPaymentStatus(String paymentstatus) {
+        this.paymentstatus = paymentstatus;
     }
 }

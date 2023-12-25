@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_List_Employee"
+        android:title="Danh sách nhân viên"
+        android:icon="@drawable/round_supervisor_account_24"/>
+    <item
+        android:id="@+id/action_Add_Employee"
+        android:title="Thêm nhân viên"
+        android:icon="@drawable/baseline_add_circle_24"/>
+
+</menu>

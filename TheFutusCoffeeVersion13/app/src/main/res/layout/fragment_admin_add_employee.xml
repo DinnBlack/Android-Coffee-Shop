@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.AdminAddEmployeeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="48dp"
+            app:cardCornerRadius="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/ivAddAccountAvatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_3385324" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/quicksandbold"
+                    android:text="Tài khoản"
+                    android:textSize="16dp"/>
+
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/tvAddAccountEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Email"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/background_btn_1"
+                    android:fontFamily="@font/quicksandmedium"/>
+
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/tvAddAccountPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Mật khẩu"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/background_btn_1"
+                    android:fontFamily="@font/quicksandmedium"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/quicksandbold"
+                    android:text="Thông tin nhân viên"
+                    android:textSize="16dp"/>
+
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/tvAddAccountName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Họ và tên"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/background_btn_1"
+                    android:fontFamily="@font/quicksandmedium"/>
+
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/tvAddAccountBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Ngày sinh"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    android:paddingHorizontal="16dp"
+                    android:drawableRight="@drawable/round_edit_calendar_24"
+                    android:background="@drawable/background_btn_1"
+                    android:fontFamily="@font/quicksandmedium"/>
+
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/tvAddAccountPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Số điện thoại"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    android:phoneNumber="true"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/background_btn_1"
+                    android:fontFamily="@font/quicksandmedium"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btAddAccountAfterFill"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    app:cornerRadius="10dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Thêm nhân viên"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/pacificoregular"
+                    app:backgroundTint="#4E74F9"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- TODO: Update blank fragment layout -->
+
+</FrameLayout>

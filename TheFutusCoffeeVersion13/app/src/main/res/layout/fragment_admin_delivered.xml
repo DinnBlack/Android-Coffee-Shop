@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1F1F1"
-    tools:context=".Fragment.ManageOrderProcessingFragment">
+    tools:context=".Fragment.AdminDeliveredFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvManageOrderProcessing"
+        android:id="@+id/rvAdminDelivered"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="16dp" />
