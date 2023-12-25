@@ -56,10 +56,47 @@ public class CardOrderAdapter extends RecyclerView.Adapter<CardOrderAdapter.View
 
     private Context context;
     private List<OrderModel> list;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public CardOrderAdapter(Context context, List<OrderModel> list) {
         this.context = context;
         this.list = list;
+    }
+
+
+    public void updateProcessingStatus(int position) {
+        OrderModel orderModel = list.get(position);
+        db.collection("Users").document(orderModel.getUser()).collection("Order").document(orderModel.getIdOrder()).update("status", "Đang giao hàng")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        notifyRemovedItem(position);
+                    }
+                }).addOnFailureListener(e -> {
+            Toast.makeText(context, "C", Toast.LENGTH_SHORT).show();
+                }
+        );
+    }
+
+    public void updateDeliveringStatus(int position) {
+        OrderModel orderModel = list.get(position);
+        db.collection("Users").document(orderModel.getUser()).collection("Order").document(orderModel.getIdOrder()).update("status", "Đã giao")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        notifyRemovedItem(position);
+                    }
+                }).addOnFailureListener(e -> {
+                            Toast.makeText(context, "C", Toast.LENGTH_SHORT).show();
+                        }
+                );
+    }
+
+
+    private void notifyRemovedItem(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, list.size());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

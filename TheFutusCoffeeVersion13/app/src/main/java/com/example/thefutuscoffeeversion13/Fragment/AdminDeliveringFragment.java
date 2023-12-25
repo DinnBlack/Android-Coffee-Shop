@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import com.example.thefutuscoffeeversion13.Adapter.CardOrderAdapter;
 import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.OrderModel;
+import com.example.thefutuscoffeeversion13.Helper.DeliveringTouchHelper;
+import com.example.thefutuscoffeeversion13.Helper.ProcessingTouchHelper;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -98,6 +101,9 @@ public class AdminDeliveringFragment extends Fragment {
         List<OrderModel> orderModelList = new ArrayList<>();
         CardOrderAdapter cardOrderAdapter = new CardOrderAdapter(getActivity(), orderModelList);
         rvAdminProcessing.setAdapter(cardOrderAdapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new DeliveringTouchHelper(cardOrderAdapter));
+        itemTouchHelper.attachToRecyclerView(rvAdminProcessing);
         loadOrderHistoryForAllUser(db, userEmail, orderModelList, cardOrderAdapter);
 
         return view;
