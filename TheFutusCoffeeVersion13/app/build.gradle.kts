@@ -50,8 +50,14 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.github.dhaval2404:imagepicker:2.1")
+//    implementation(fileTree(mapOf(
+//        "dir" to "C:\\Users\\phucd\\AndroidStudioProjects\\final_project_mobile\\TheFutusCoffeeVersion13\\app\\src\\main\\libs",
+//        "include" to listOf("*.aar", "*.jar"),
+//        "exclude" to listOf("*.aar", "*.jar")
+//    )))
+
     implementation(fileTree(mapOf(
-        "dir" to "C:\\Users\\phucd\\AndroidStudioProjects\\final_project_mobile\\TheFutusCoffeeVersion13\\app\\src\\main\\libs",
+        "dir" to "D:\\TDTU\\HK5\\Mobile App\\PhucDinn\\final_project_mobile\\TheFutusCoffeeVersion13\\app\\src\\main\\libs",
         "include" to listOf("*.aar", "*.jar"),
         "exclude" to listOf("*.aar", "*.jar")
     )))
@@ -64,7 +70,9 @@ dependencies {
     //zalo
     implementation("com.squareup.okhttp3:okhttp:4.6.0")
     implementation("commons-codec:commons-codec:1.14")
-    implementation(files("C:\\Users\\phucd\\AndroidStudioProjects\\final_project_mobile\\TheFutusCoffeeVersion13\\app\\src\\main\\libs\\zpdk-release-v3.1.aar"))
+    implementation(files("D:\\TDTU\\HK5\\Mobile App\\PhucDinn\\final_project_mobile\\TheFutusCoffeeVersion13\\app\\src\\main\\libs\\zpdk-release-v3.1.aar"))
+
+    implementation ("it.xabaras.android:recyclerview-swipedecorator:1.4")
 
 
 }

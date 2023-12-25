@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.example.thefutuscoffeeversion13.Adapter.CardOrderAdapter;
 import com.example.thefutuscoffeeversion13.Dialog.LoadingDialog;
 import com.example.thefutuscoffeeversion13.Domain.OrderModel;
+import com.example.thefutuscoffeeversion13.Helper.ProcessingTouchHelper;
 import com.example.thefutuscoffeeversion13.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -104,6 +106,9 @@ public class AdminProcessingFragment extends Fragment {
         List<OrderModel> orderModelList = new ArrayList<>();
         CardOrderAdapter cardOrderAdapter = new CardOrderAdapter(getActivity(), orderModelList);
         rvAdminProcessing.setAdapter(cardOrderAdapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ProcessingTouchHelper(cardOrderAdapter));
+        itemTouchHelper.attachToRecyclerView(rvAdminProcessing);
         loadOrderHistoryForAllUser(db, userEmail, orderModelList, cardOrderAdapter);
 
 
