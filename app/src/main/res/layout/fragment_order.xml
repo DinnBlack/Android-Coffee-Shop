@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F1F1F1"
+    tools:context=".Fragment.OrderFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="20dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivNewDrink"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/newdrink" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Món mới phải thử"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivCoffee"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/coffee" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Cà Phê"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivHiTea"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/hitea" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Trà Trái cây"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivMilkTea"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/milktea" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Trà sữa"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivGreenTea"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/matcha" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Trà xanh"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivHotDrink"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/hotdrink" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:textStyle="bold"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Món nóng"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivSaltineCrackers"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/banhman" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Bánh mặn"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:cardCornerRadius="50dp"
+                                android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivCake"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/banhngot" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:textSize="10dp"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/quicksandbold"
+                                android:text="Bánh ngọt"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOrderOrderOffer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Gợi ý riêng cho bạn"
+                android:textSize="16dp"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardOffer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvNewDrink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Món mới phải thử"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardNewDrink"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCoffee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Cà Phê"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardCoffee"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHiTea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Trà trái cây"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardHiTea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMilkTea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Trà sữa"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardMilkTea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvGreenTea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Trà xanh"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardGreenTea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHotDrink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Món nóng"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardHotDrink"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSaltineCrackers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:paddingHorizontal="16dp"
+                android:text="Bánh mặn"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardSaltineCrackers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksandbold"
+                android:layout_marginHorizontal="16dp"
+                android:text="Bánh ngọt"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderCardCake"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="70dp"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>
